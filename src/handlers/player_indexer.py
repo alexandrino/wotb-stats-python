@@ -6,9 +6,9 @@ from src.common.log import logger
 
 
 def fetch_data():
-    api_endpoint = os.environ.get("API_ENDPOINT")
-    app_id = os.environ.get("APP_ID")
-    account_id = os.environ.get("ACCOUNT_ID")
+    api_endpoint = os.environ.get("API_ENDPOINT", "http://localhost")
+    app_id = os.environ.get("APP_ID", 11112)
+    account_id = os.environ.get("ACCOUNT_ID", 11113)
 
     url = f"{api_endpoint}/account/info/?application_id={app_id}&account_id={account_id}"
     return requests.get(url)
@@ -20,7 +20,7 @@ def get_stats(event, context):
     try:
         body = fetch_data()
         response = {
-            "statusCode": 200,
+            "status_code": 200,
             "body": json.dumps(body.text)
         }
         logger.info("get_stats.success")
@@ -28,6 +28,8 @@ def get_stats(event, context):
 
     except Exception as exc:
         logger.error(f"get_stats.error {exc}")
+
         return {
-            "statusCode": 500,
+            "status_code": 500,
+            "body": {"status": "server error"}
         }
