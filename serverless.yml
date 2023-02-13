@@ -59,8 +59,6 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  hello:
-    handler: src/handlers/handler.hello
   player_indexer:
     handler: src/handlers/player_indexer.get_stats
 #    The following are a few example events you can configure

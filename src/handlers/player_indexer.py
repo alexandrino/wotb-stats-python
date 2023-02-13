@@ -4,17 +4,19 @@ import os
 
 from src.common.log import logger
 
-api_endpoint = os.environ.get("API_ENDPOINT")
-app_id = os.environ.get("APP_ID")
-account_id = os.environ.get("ACCOUNT_ID")
 
 def fetch_data():
+    api_endpoint = os.environ.get("API_ENDPOINT")
+    app_id = os.environ.get("APP_ID")
+    account_id = os.environ.get("ACCOUNT_ID")
+
     url = f"{api_endpoint}/account/info/?application_id={app_id}&account_id={account_id}"
     return requests.get(url)
 
 
 def get_stats(event, context):
     logger.debug("get_stats.start")
+
     try:
         body = fetch_data()
         response = {
@@ -29,6 +31,3 @@ def get_stats(event, context):
         return {
             "statusCode": 500,
         }
-
-
-    return response
