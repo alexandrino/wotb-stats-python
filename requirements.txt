@@ -3,3 +3,6 @@ pytest
 pytest-mock
 pytest-cov
 responses
+boto3
+pydantic
+typing
